@@ -1,0 +1,7 @@
+{% extends 'mainblog/base.html' %}
+
+{% block content %}
+<p>Your user name - <i>{{ user.username }}</i></p>
+<p>Your email - {{ user.email }}  </p>
+<mark>You are with us since  {{ user.date_joined|date:'F-m-o' }}</mark>
+{% endblock %}

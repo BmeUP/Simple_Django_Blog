@@ -1,0 +1,10 @@
+{% extends 'mainblog/base.html' %}
+
+{% block content %}
+{% if error_message %}
+{{ error_message }}
+{% else %}
+<h1>Ok!</h1>
+{% endif %}
+
+{% endblock %}

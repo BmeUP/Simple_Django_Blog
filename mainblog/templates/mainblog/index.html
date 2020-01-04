@@ -1,0 +1,10 @@
+{% extends 'mainblog/base.html' %}
+{% block content %}
+    {% for i in posts %}
+        <a href="{% url 'mainblog:detail' post_id=i.id %}">{{ i.title }}</a>
+        <h5>{{ i.content }}</h5>
+        <i>Author is {{ i.author }}</i>
+        <hr>
+        <h5>{{ i.pub_date }}</h5>
+    {% endfor %}
+{% endblock %}
