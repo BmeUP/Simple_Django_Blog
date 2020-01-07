@@ -1,4 +1,4 @@
-from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
@@ -14,6 +14,9 @@ class RegisterForm(UserCreationForm):
         )
 
 
-class PostCreate(forms.Form):
-    title = forms.CharField(max_length=100, widget=forms.TextInput, label="Title")
-    content = forms.CharField(max_length=100, widget=forms.Textarea, label="Content")
+class PostCreate(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+   # title = forms.CharField(max_length=100, widget=forms.TextInput, label="Title")
+   # content = forms.CharField(max_length=100, widget=forms.Textarea, label="Content")

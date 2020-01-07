@@ -46,7 +46,7 @@ def account(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(request, "mainblog/account.html", {"user": user})
 
-
+@login_required(login_url="login/")
 def create_post(request, user_id):
     if request.method == "POST":
         form = PostCreate(request.POST)
@@ -68,13 +68,31 @@ def create_post(request, user_id):
 def error_not_found(request, exception=None):
     return render(request, "mainblog/404.html", status=404)
 
-
+@login_required(login_url="login/")
 def del_post(request, post_id):
     if request.method == "POST":
         Post.objects.filter(id=post_id).delete()
         return HttpResponseRedirect(reverse("mainblog:index"))
+    return detail(request, post_id)
+
+def update_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        form = PostCreate(request.POST, instance=post)
+        if form.is_valid():
+            new_post = Post.objects.filter(id=post_id).update(
+                title=form.cleaned_data["title"],
+                content=form.cleaned_data["content"],
+                pub_date=datetime.datetime.now(),
+            )
+            
+            return HttpResponseRedirect(reverse("mainblog:index"))
     else:
-        return detail(request, post_id)
+        form = PostCreate(instance=post)
+    return render(request, 'mainblog/post_update.html', {'form': form, 'post':post})    
+
+
+
 
 
 # Create your views here.

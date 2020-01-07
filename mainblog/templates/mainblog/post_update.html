@@ -1,0 +1,17 @@
+{% extends 'mainblog/base.html' %}
+
+{% block content %}
+<form action="{% url 'mainblog:update_post' post.id %}" method="POST">
+{% csrf_token %}
+    <div class="form-group">
+       {{ form.title.label_tag }}
+       <br>
+       {{ form.title }}
+    </div>
+    <div class="form-group">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+{% endblock %}
